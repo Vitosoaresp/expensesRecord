@@ -30,7 +30,7 @@ class Login extends React.Component {
     const { senha, email } = this.state;
     const checkEmail = this.IsEmail(email);
     const REQUIRE_LENGTH = 6;
-    if (senha.length < REQUIRE_LENGTH && checkEmail) {
+    if (senha.length < REQUIRE_LENGTH === false && checkEmail === false) {
       check = false;
     }
     this.setState({ isDisabled: check });
