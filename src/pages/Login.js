@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { actionLogin } from '../redux/actions';
+import { actionLogin, fetchCurrencies } from '../actions';
 
 class Login extends React.Component {
   constructor() {
@@ -30,7 +30,7 @@ class Login extends React.Component {
     const { senha, email } = this.state;
     const checkEmail = this.IsEmail(email);
     const REQUIRE_LENGTH = 6;
-    if (senha.length < REQUIRE_LENGTH === false && checkEmail === false) {
+    if (senha.length < REQUIRE_LENGTH && checkEmail) {
       check = false;
     }
     this.setState({ isDisabled: check });
@@ -82,6 +82,7 @@ class Login extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   setUser: (user) => dispatch(actionLogin(user)),
+  getCurrency: () => dispatch(fetchCurrencies()),
 });
 
 Login.propTypes = {

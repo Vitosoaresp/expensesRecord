@@ -1,4 +1,4 @@
-import { WALLET } from '../redux/actions';
+import { GET_CURRENCIES } from '../actions';
 
 const INITIAL_STATE = {
   currencies: [],
@@ -7,10 +7,10 @@ const INITIAL_STATE = {
 
 function wallet(state = INITIAL_STATE, action) {
   switch (action.type) {
-  case WALLET:
+  case GET_CURRENCIES:
     return {
       ...state,
-      ...action.payload,
+      currencies: action.data,
     };
   default:
     return state;
