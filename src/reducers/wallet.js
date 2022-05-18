@@ -10,7 +10,7 @@ function wallet(state = INITIAL_STATE, action) {
   case WALLET:
     return {
       ...state,
-      action,
+      ...action.payload,
     };
   default:
     return state;
