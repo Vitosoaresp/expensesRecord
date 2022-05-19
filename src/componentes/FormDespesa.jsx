@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { actionAddExpense } from '../actions';
+import TableSpend from './TableSpend';
 
 class FormDespesa extends React.Component {
   state = {
@@ -123,6 +124,9 @@ class FormDespesa extends React.Component {
             Adicionar despesa
           </button>
         </form>
+        <div>
+          <TableSpend />
+        </div>
       </div>
     );
   }
