@@ -22,7 +22,6 @@ class FormDespesa extends React.Component {
   fecthPrices = async () => {
     const currenciesApi = await fetch('https://economia.awesomeapi.com.br/json/all');
     const result = await currenciesApi.json();
-    delete result.USDT;
     return result;
   };
 
@@ -48,7 +47,7 @@ class FormDespesa extends React.Component {
           <label htmlFor="despesa-valor">
             Valor:
             <input
-              type="number"
+              type="text"
               name="value"
               id="despesa-valor"
               data-testid="value-input"
