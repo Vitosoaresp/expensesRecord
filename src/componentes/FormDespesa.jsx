@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { actionAddExpense } from '../actions';
+import { actionAddExpense, actionDeleteExpense } from '../actions';
 import TableSpend from './TableSpend';
 
 class FormDespesa extends React.Component {
@@ -23,6 +23,14 @@ class FormDespesa extends React.Component {
     const currenciesApi = await fetch('https://economia.awesomeapi.com.br/json/all');
     const result = await currenciesApi.json();
     return result;
+  };
+
+  deleteExpense = (idExpense) => {
+    const { delExpense } = this.props;
+    delExpense(idExpense);
+    this.setState(({ id }) => this.setState({
+      id: id - 1,
+    }));
   };
 
   saveExpanse = async () => {
@@ -124,7 +132,7 @@ class FormDespesa extends React.Component {
           </button>
         </form>
         <div>
-          <TableSpend />
+          <TableSpend deleteExpense={ this.deleteExpense } />
         </div>
       </div>
     );
@@ -134,6 +142,7 @@ class FormDespesa extends React.Component {
 FormDespesa.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
   saveExpanse: PropTypes.func.isRequired,
+  delExpense: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -142,6 +151,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   saveExpanse: (expanse) => dispatch(actionAddExpense(expanse)),
+  delExpense: (id) => dispatch(actionDeleteExpense(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormDespesa);
