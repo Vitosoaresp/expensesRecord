@@ -74,13 +74,13 @@ class FormDespesa extends React.Component {
               onChange={ (e) => this.handleForm(e) }
               value={ currency }
             >
-              { currencies.filter((currency) => currency !== 'USDT')
-                .map((currency, index) => (
+              { currencies.filter((currenci) => currenci !== 'USDT')
+                .map((currenci, index) => (
                   <option
                     key={ index }
-                    value={ currency }
+                    value={ currenci }
                   >
-                    {currency}
+                    {currenci}
                   </option>
                 ))}
             </select>
