@@ -7,7 +7,10 @@ export const getCurrencies = (data) => ({
   type: GET_CURRENCIES,
   data: Object.keys(data),
 });
-export const actionAddExpense = (expense) => ({ type: ADD_EXPENSE, expense });
+export const actionAddExpense = (expense) => ({
+  type: ADD_EXPENSE,
+  payload: expense,
+});
 
 export function fetchCurrencies() {
   return (dispatch) => fetch('https://economia.awesomeapi.com.br/json/all')

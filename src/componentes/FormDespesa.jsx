@@ -5,11 +5,12 @@ import { actionAddExpense } from '../actions';
 
 class FormDespesa extends React.Component {
   state = {
-    despesa: 0,
-    descricao: '',
-    moeda: 'USD',
-    metodoPag: 'Dinheiro',
+    value: 0,
+    description: '',
+    currency: 'USD',
+    method: 'Dinheiro',
     tag: 'Alimentação',
+    id: 0,
   }
 
   handleForm = ({ target }) => {
@@ -17,14 +18,29 @@ class FormDespesa extends React.Component {
     this.setState({ [name]: value });
   };
 
-  saveExpanse = () => {
+  fecthPrices = async () => {
+    const currenciesApi = await fetch('https://economia.awesomeapi.com.br/json/all');
+    const result = await currenciesApi.json();
+    delete result.USDT;
+    return result;
+  };
+
+  saveExpanse = async () => {
     const { saveExpanse } = this.props;
-    saveExpanse({ ...this.state, id: 0 });
+    const currencies = await this.fecthPrices();
+    saveExpanse({ ...this.state, exchangeRates: currencies });
+    this.setState(({ id }) => this.setState({
+      id: id + 1,
+      value: '',
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+    }));
   };
 
   render() {
     const { currencies } = this.props;
-    const { despesa, descricao, moeda, metodoPag, tag } = this.state;
+    const { value, description, currency, method, tag } = this.state;
     return (
       <div>
         <form>
@@ -32,31 +48,31 @@ class FormDespesa extends React.Component {
             Valor:
             <input
               type="number"
-              name="despesa"
+              name="value"
               id="despesa-valor"
               data-testid="value-input"
               onChange={ (e) => this.handleForm(e) }
-              value={ despesa }
+              value={ value }
             />
           </label>
           <label htmlFor="descricao">
             Descrição:
             <input
               type="text"
-              name="descricao"
+              name="description"
               id="descricao"
               data-testid="description-input"
               onChange={ (e) => this.handleForm(e) }
-              value={ descricao }
+              value={ description }
             />
           </label>
           <label htmlFor="moeda">
             Moeda:
             <select
               id="moeda"
-              name="moeda"
+              name="currency"
               onChange={ (e) => this.handleForm(e) }
-              value={ moeda }
+              value={ currency }
             >
               { currencies.filter((currency) => currency !== 'USDT')
                 .map((currency, index) => (
@@ -74,9 +90,9 @@ class FormDespesa extends React.Component {
             <select
               id="metodo-pagamento"
               data-testid="method-input"
-              name="metodoPag"
+              name="method"
               onChange={ (e) => this.handleForm(e) }
-              value={ metodoPag }
+              value={ method }
             >
               <option value="Dinheiro">Dinheiro</option>
               <option value="Cartão de crédito">Cartão de crédito</option>
