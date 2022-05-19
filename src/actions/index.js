@@ -1,6 +1,7 @@
 export const LOGIN = 'LOGIN';
 export const GET_CURRENCIES = 'GET_CURRENCIES';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 export const actionLogin = (login) => ({ type: LOGIN, payload: login });
 export const getCurrencies = (data) => ({
@@ -9,6 +10,11 @@ export const getCurrencies = (data) => ({
 });
 export const actionAddExpense = (expense) => ({
   type: ADD_EXPENSE,
+  payload: expense,
+});
+
+export const actionDeleteExpense = (expense) => ({
+  type: DELETE_EXPENSE,
   payload: expense,
 });
 

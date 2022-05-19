@@ -47,7 +47,7 @@ class FormDespesa extends React.Component {
           <label htmlFor="despesa-valor">
             Valor:
             <input
-              type="text"
+              type="number"
               name="value"
               id="despesa-valor"
               data-testid="value-input"
