@@ -1,10 +1,30 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { actionAddExpense } from '../actions';
 
 class FormDespesa extends React.Component {
+  state = {
+    despesa: 0,
+    descricao: '',
+    moeda: 'USD',
+    metodoPag: 'Dinheiro',
+    tag: 'Alimentação',
+  }
+
+  handleForm = ({ target }) => {
+    const { name, value } = target;
+    this.setState({ [name]: value });
+  };
+
+  saveExpanse = () => {
+    const { saveExpanse } = this.props;
+    saveExpanse({ ...this.state, id: 0 });
+  };
+
   render() {
     const { currencies } = this.props;
+    const { despesa, descricao, moeda, metodoPag, tag } = this.state;
     return (
       <div>
         <form>
@@ -12,9 +32,11 @@ class FormDespesa extends React.Component {
             Valor:
             <input
               type="number"
-              name="despesa-valor"
+              name="despesa"
               id="despesa-valor"
               data-testid="value-input"
+              onChange={ (e) => this.handleForm(e) }
+              value={ despesa }
             />
           </label>
           <label htmlFor="descricao">
@@ -24,11 +46,18 @@ class FormDespesa extends React.Component {
               name="descricao"
               id="descricao"
               data-testid="description-input"
+              onChange={ (e) => this.handleForm(e) }
+              value={ descricao }
             />
           </label>
           <label htmlFor="moeda">
             Moeda:
-            <select id="moeda">
+            <select
+              id="moeda"
+              name="moeda"
+              onChange={ (e) => this.handleForm(e) }
+              value={ moeda }
+            >
               { currencies.filter((currency) => currency !== 'USDT')
                 .map((currency, index) => (
                   <option
@@ -42,7 +71,13 @@ class FormDespesa extends React.Component {
           </label>
           <label htmlFor="metodo-pagamento">
             Método de Pagamento:
-            <select id="metodo-pagamento" data-testid="method-input">
+            <select
+              id="metodo-pagamento"
+              data-testid="method-input"
+              name="metodoPag"
+              onChange={ (e) => this.handleForm(e) }
+              value={ metodoPag }
+            >
               <option value="Dinheiro">Dinheiro</option>
               <option value="Cartão de crédito">Cartão de crédito</option>
               <option value="Cartão de débito">Cartão de débito</option>
@@ -50,7 +85,13 @@ class FormDespesa extends React.Component {
           </label>
           <label htmlFor="tag">
             Tag:
-            <select id="tag" data-testid="tag-input">
+            <select
+              id="tag"
+              data-testid="tag-input"
+              name="tag"
+              onChange={ (e) => this.handleForm(e) }
+              value={ tag }
+            >
               <option value="Alimentação">Alimentação</option>
               <option value="Lazer">Lazer</option>
               <option value="Trabalho">Trabalho</option>
@@ -59,6 +100,12 @@ class FormDespesa extends React.Component {
 
             </select>
           </label>
+          <button
+            type="button"
+            onClick={ () => this.saveExpanse() }
+          >
+            Adicionar despesa
+          </button>
         </form>
       </div>
     );
@@ -66,11 +113,16 @@ class FormDespesa extends React.Component {
 }
 
 FormDespesa.propTypes = {
-  currencies: PropTypes.arrayOf().isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  saveExpanse: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
 });
 
-export default connect(mapStateToProps)(FormDespesa);
+const mapDispatchToProps = (dispatch) => ({
+  saveExpanse: (expanse) => dispatch(actionAddExpense(expanse)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FormDespesa);
