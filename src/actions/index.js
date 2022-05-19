@@ -8,7 +8,6 @@ export const getCurrencies = (data) => ({
 });
 
 export function fetchCurrencies() {
-  // const moedas = [];
   return (dispatch) => fetch('https://economia.awesomeapi.com.br/json/all')
     .then((response) => response.json())
     .then((currencies) => dispatch(getCurrencies(currencies)));
