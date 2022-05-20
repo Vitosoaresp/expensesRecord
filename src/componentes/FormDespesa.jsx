@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { actionAddExpense, actionDeleteExpense } from '../actions';
+import { actionAddExpense, actionDeleteExpense, actionEditExpense } from '../actions';
 import TableSpend from './TableSpend';
 
 class FormDespesa extends React.Component {
@@ -12,6 +12,9 @@ class FormDespesa extends React.Component {
     method: 'Dinheiro',
     tag: 'Alimentação',
     id: 0,
+    isEditingMode: false,
+    expenseSelect: '',
+    expenseSelectPosition: 0,
   }
 
   handleForm = ({ target }) => {
@@ -34,11 +37,25 @@ class FormDespesa extends React.Component {
   };
 
   saveExpanse = async () => {
+    const {
+      value,
+      description,
+      currency,
+      method,
+      tag,
+      id } = this.state;
     const { saveExpanse } = this.props;
     const currencies = await this.fecthPrices();
-    saveExpanse({ ...this.state, exchangeRates: currencies });
-    this.setState(({ id }) => this.setState({
-      id: id + 1,
+    saveExpanse({
+      value,
+      description,
+      currency,
+      method,
+      tag,
+      id,
+      exchangeRates: currencies });
+    this.setState((prevState) => this.setState({
+      id: prevState.id + 1,
       value: '',
       description: '',
       currency: 'USD',
@@ -46,11 +63,69 @@ class FormDespesa extends React.Component {
     }));
   };
 
+  setEditExpense = () => {
+    const { editExpense, expenses } = this.props;
+    const {
+      expenseSelect,
+      expenseSelectPosition,
+      value,
+      description,
+      currency,
+      method,
+      tag,
+    } = this.state;
+    const expanseEdited = { ...expenseSelect, value, description, currency, method, tag };
+    editExpense(expanseEdited, expenseSelectPosition, expenses);
+    this.setState({
+      value: 0,
+      description: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      expenseSelect: '',
+      expenseSelectPosition: 0,
+      isEditingMode: false,
+    });
+  };
+
+  editExpense = (expanse, position) => {
+    this.setState({
+      isEditingMode: true,
+      expenseSelect: expanse,
+      expenseSelectPosition: position,
+    });
+  };
+
+  getExpenses = () => {
+    const { expenses } = this.props;
+    if (expenses.length === 0) return 0;
+    const sum = expenses
+      .map(({
+        value,
+        currency,
+        exchangeRates,
+      }) => Number(value) * Number(exchangeRates[currency].ask))
+      .reduce((acc, cur) => acc + cur);
+    return sum.toFixed(2);
+  };
+
   render() {
-    const { currencies } = this.props;
-    const { value, description, currency, method, tag } = this.state;
+    const { currencies, email } = this.props;
+    const { value, description, currency, method, tag, isEditingMode } = this.state;
     return (
       <div>
+        <header className="header">
+          <div className="user-info">
+            User:
+            <span data-testid="email-field">
+              { email }
+            </span>
+          </div>
+          <div className="user-cash">
+            Despesa Total:
+            <span data-testid="total-field">{this.getExpenses()}</span>
+            <span data-testid="header-currency-field">BRL</span>
+          </div>
+        </header>
         <form>
           <label htmlFor="despesa-valor">
             Valor:
@@ -79,6 +154,7 @@ class FormDespesa extends React.Component {
             <select
               id="moeda"
               name="currency"
+              data-testid="currency-input"
               onChange={ (e) => this.handleForm(e) }
               value={ currency }
             >
@@ -124,15 +200,23 @@ class FormDespesa extends React.Component {
 
             </select>
           </label>
-          <button
-            type="button"
-            onClick={ () => this.saveExpanse() }
-          >
-            Adicionar despesa
-          </button>
+          { isEditingMode ? (
+            <button type="button" onClick={ () => this.setEditExpense() }>
+              Editar despesa
+            </button>
+          ) : (
+            <button type="button" onClick={ () => this.saveExpanse() }>
+              Adicionar despesa
+            </button>
+          )}
+
         </form>
         <div>
-          <TableSpend deleteExpense={ this.deleteExpense } />
+          <TableSpend
+            deleteExpense={ this.deleteExpense }
+            isEditingMode={ isEditingMode }
+            editExpanse={ this.editExpense }
+          />
         </div>
       </div>
     );
@@ -141,17 +225,25 @@ class FormDespesa extends React.Component {
 
 FormDespesa.propTypes = {
   currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   saveExpanse: PropTypes.func.isRequired,
   delExpense: PropTypes.func.isRequired,
+  editExpense: PropTypes.func.isRequired,
+  email: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
+  expenses: state.wallet.expenses,
+  email: state.user.email,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   saveExpanse: (expanse) => dispatch(actionAddExpense(expanse)),
   delExpense: (id) => dispatch(actionDeleteExpense(id)),
+  editExpense: (newExpense, position, expenses) => dispatch(
+    actionEditExpense(newExpense, position, expenses),
+  ),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormDespesa);

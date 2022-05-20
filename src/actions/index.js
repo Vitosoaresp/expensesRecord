@@ -2,6 +2,7 @@ export const LOGIN = 'LOGIN';
 export const GET_CURRENCIES = 'GET_CURRENCIES';
 export const ADD_EXPENSE = 'ADD_EXPENSE';
 export const DELETE_EXPENSE = 'DELETE_EXPENSE';
+export const EDIT_EXPENSE = 'EDIT_EXPENSE';
 
 export const actionLogin = (login) => ({ type: LOGIN, payload: login });
 export const getCurrencies = (data) => ({
@@ -17,6 +18,14 @@ export const actionDeleteExpense = (expense) => ({
   type: DELETE_EXPENSE,
   payload: expense,
 });
+
+export const actionEditExpense = (newExpense, position, expenses) => {
+  expenses[position] = newExpense;
+  return ({
+    type: EDIT_EXPENSE,
+    payload: expenses,
+  });
+};
 
 export function fetchCurrencies() {
   return (dispatch) => fetch('https://economia.awesomeapi.com.br/json/all')

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 class TableSpend extends React.Component {
   render() {
-    const { expenses, deleteExpense } = this.props;
+    const { expenses, deleteExpense, editExpanse } = this.props;
     return (
       <table>
         <tr>
@@ -26,7 +26,7 @@ class TableSpend extends React.Component {
           tag,
           method,
           exchangeRates,
-        }) => (
+        }, index) => (
           <tr key={ id }>
             <td>{description}</td>
             <td>{tag}</td>
@@ -42,6 +42,13 @@ class TableSpend extends React.Component {
             </td>
             <td>Real</td>
             <td>
+              <button
+                type="button"
+                data-testid="edit-btn"
+                onClick={ () => editExpanse(expenses[index], index) }
+              >
+                Editar
+              </button>
               <button
                 type="button"
                 data-testid="delete-btn"
@@ -60,6 +67,7 @@ class TableSpend extends React.Component {
 TableSpend.propTypes = {
   expenses: PropTypes.arrayOf(PropTypes.object).isRequired,
   deleteExpense: PropTypes.func.isRequired,
+  editExpanse: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
