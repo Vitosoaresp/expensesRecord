@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { BiWalletAlt, BiUserCircle } from 'react-icons/bi';
 import { actionAddExpense, actionDeleteExpense, actionEditExpense } from '../actions';
 import TableSpend from './TableSpend';
+import './FormDespesa.css';
 
 class FormDespesa extends React.Component {
   state = {
@@ -31,19 +33,11 @@ class FormDespesa extends React.Component {
   deleteExpense = (idExpense) => {
     const { delExpense } = this.props;
     delExpense(idExpense);
-    this.setState(({ id }) => this.setState({
-      id: id - 1,
-    }));
+    this.setState(({ id }) => this.setState({ id: id - 1 }));
   };
 
   saveExpanse = async () => {
-    const {
-      value,
-      description,
-      currency,
-      method,
-      tag,
-      id } = this.state;
+    const { value, description, currency, method, tag, id } = this.state;
     const { saveExpanse } = this.props;
     const currencies = await this.fecthPrices();
     saveExpanse({
@@ -59,21 +53,13 @@ class FormDespesa extends React.Component {
       value: '',
       description: '',
       currency: 'USD',
-      method: 'Dinheiro',
-    }));
+      method: 'Dinheiro' }));
   };
 
   setEditExpense = () => {
     const { editExpense, expenses } = this.props;
-    const {
-      expenseSelect,
-      expenseSelectPosition,
-      value,
-      description,
-      currency,
-      method,
-      tag,
-    } = this.state;
+    const { expenseSelect, expenseSelectPosition, value, description, currency, method,
+      tag } = this.state;
     const expanseEdited = { ...expenseSelect, value, description, currency, method, tag };
     editExpense(expanseEdited, expenseSelectPosition, expenses);
     this.setState({
@@ -87,46 +73,50 @@ class FormDespesa extends React.Component {
     });
   };
 
-  editExpense = (expanse, position) => {
+  editExpense = (expense, position) => {
+    const { value, description, currency, method, tag } = expense;
     this.setState({
       isEditingMode: true,
-      expenseSelect: expanse,
+      expenseSelect: expense,
       expenseSelectPosition: position,
-    });
+      value,
+      description,
+      currency,
+      method,
+      tag });
   };
 
-  getExpenses = () => {
-    const { expenses } = this.props;
+  getSumExpenses = (expenses) => {
     if (expenses.length === 0) return 0;
     const sum = expenses
-      .map(({
-        value,
-        currency,
-        exchangeRates,
-      }) => Number(value) * Number(exchangeRates[currency].ask))
+      .map(({ value, currency, exchangeRates }) => (
+        Number(value) * Number(exchangeRates[currency].ask)))
       .reduce((acc, cur) => acc + cur);
     return sum.toFixed(2);
   };
 
   render() {
-    const { currencies, email } = this.props;
+    const { currencies, email, expenses } = this.props;
     const { value, description, currency, method, tag, isEditingMode } = this.state;
     return (
       <div>
         <header className="header">
-          <div className="user-info">
-            User:
-            <span data-testid="email-field">
-              { email }
-            </span>
-          </div>
-          <div className="user-cash">
-            Despesa Total:
-            <span data-testid="total-field">{this.getExpenses()}</span>
-            <span data-testid="header-currency-field">BRL</span>
+          <div className="wallet-svg"><BiWalletAlt /></div>
+          <div className="user">
+            <div className="user-info">
+              <BiUserCircle className="user-svg" />
+              <span data-testid="email-field">
+                { email }
+              </span>
+            </div>
+            <div className="user-cash">
+              Despesa Total: R$
+              <span data-testid="total-field">{this.getSumExpenses(expenses)}</span>
+              <span data-testid="header-currency-field">BRL</span>
+            </div>
           </div>
         </header>
-        <form>
+        <form className="form-container">
           <label htmlFor="despesa-valor">
             Valor:
             <input
@@ -197,19 +187,19 @@ class FormDespesa extends React.Component {
               <option value="Trabalho">Trabalho</option>
               <option value="Transporte">Transporte</option>
               <option value="Saúde">Saúde</option>
-
             </select>
           </label>
-          { isEditingMode ? (
-            <button type="button" onClick={ () => this.setEditExpense() }>
-              Editar despesa
-            </button>
-          ) : (
-            <button type="button" onClick={ () => this.saveExpanse() }>
-              Adicionar despesa
-            </button>
-          )}
-
+          <div>
+            { isEditingMode ? (
+              <button type="button" onClick={ () => this.setEditExpense() }>
+                Editar despesa
+              </button>
+            ) : (
+              <button type="button" onClick={ () => this.saveExpanse() }>
+                Adicionar despesa
+              </button>
+            )}
+          </div>
         </form>
         <div>
           <TableSpend
@@ -235,15 +225,13 @@ FormDespesa.propTypes = {
 const mapStateToProps = (state) => ({
   currencies: state.wallet.currencies,
   expenses: state.wallet.expenses,
-  email: state.user.email,
-});
+  email: state.user.email });
 
 const mapDispatchToProps = (dispatch) => ({
   saveExpanse: (expanse) => dispatch(actionAddExpense(expanse)),
   delExpense: (id) => dispatch(actionDeleteExpense(id)),
   editExpense: (newExpense, position, expenses) => dispatch(
     actionEditExpense(newExpense, position, expenses),
-  ),
-});
+  ) });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FormDespesa);

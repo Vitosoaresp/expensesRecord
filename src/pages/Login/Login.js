@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { actionLogin, fetchCurrencies } from '../actions';
+import { actionLogin, fetchCurrencies } from '../../actions';
+import './login.css';
 
 class Login extends React.Component {
   constructor() {
@@ -47,8 +48,8 @@ class Login extends React.Component {
   render() {
     const { email, senha, isDisabled } = this.state;
     return (
-      <div>
-        Login
+      <div className="login-container">
+        <h1>LOGIN</h1>
         <form>
           <input
             type="email"

@@ -1,13 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import './TableSpend.css';
 
 class TableSpend extends React.Component {
   render() {
     const { expenses, deleteExpense, editExpanse } = this.props;
     return (
-      <table>
-        <tr>
+      <table className="table-expense-container">
+        <tr className="table-tr table-trHeader">
           <th>Descrição</th>
           <th>Tag</th>
           <th>Método de pagamento</th>
@@ -27,7 +28,7 @@ class TableSpend extends React.Component {
           method,
           exchangeRates,
         }, index) => (
-          <tr key={ id }>
+          <tr key={ id } className="table-tr table-body">
             <td>{description}</td>
             <td>{tag}</td>
             <td>{method}</td>
@@ -45,6 +46,7 @@ class TableSpend extends React.Component {
               <button
                 type="button"
                 data-testid="edit-btn"
+                className="btn-edit"
                 onClick={ () => editExpanse(expenses[index], index) }
               >
                 Editar
@@ -52,6 +54,7 @@ class TableSpend extends React.Component {
               <button
                 type="button"
                 data-testid="delete-btn"
+                className="btn-delete"
                 onClick={ () => deleteExpense(id) }
               >
                 Excluir
