@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { actionLogin, fetchCurrencies } from '../../actions';
+import { actionLogin, fetchCurrencies } from '../../redux/actions';
 import './login.css';
 
 class Login extends React.Component {
@@ -10,7 +10,6 @@ class Login extends React.Component {
 
     this.state = {
       email: '',
-      senha: '',
       isDisabled: true,
     };
   }
@@ -28,10 +27,9 @@ class Login extends React.Component {
 
   verifyLogin = () => {
     let check = true;
-    const { senha, email } = this.state;
+    const { email } = this.state;
     const checkEmail = this.IsEmail(email);
-    const REQUIRE_LENGTH = 6;
-    if (senha.length < REQUIRE_LENGTH === false && checkEmail === false) {
+    if (checkEmail === false) {
       check = false;
     }
     this.setState({ isDisabled: check });
@@ -40,31 +38,22 @@ class Login extends React.Component {
   clickEnter = (e) => {
     e.preventDefault();
     const { history, setUser } = this.props;
-    const { email, senha } = this.state;
-    setUser({ email, senha });
+    const { email } = this.state;
+    setUser({ email });
     history.push('/carteira');
   }
 
   render() {
-    const { email, senha, isDisabled } = this.state;
+    const { email, isDisabled } = this.state;
     return (
       <div className="login-container">
         <h1>LOGIN</h1>
         <form>
           <input
             type="email"
-            data-testid="email-input"
             name="email"
             value={ email }
-            required
-            onChange={ (e) => this.handleForm(e) }
-            onKeyUp={ () => this.verifyLogin() }
-          />
-          <input
-            type="password"
-            data-testid="password-input"
-            name="senha"
-            value={ senha }
+            placeholder="Email"
             onChange={ (e) => this.handleForm(e) }
             onKeyUp={ () => this.verifyLogin() }
           />

@@ -1,8 +1,7 @@
-import { LOGIN } from '../actions';
+import { LOGIN } from '../actions/index';
 
 const INITIAL_STATE = {
   email: '',
-  senha: '',
 };
 
 function user(state = INITIAL_STATE, action) {

@@ -5,10 +5,12 @@ export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 export const EDIT_EXPENSE = 'EDIT_EXPENSE';
 
 export const actionLogin = (login) => ({ type: LOGIN, payload: login });
+
 export const getCurrencies = (data) => ({
   type: GET_CURRENCIES,
   data: Object.keys(data),
 });
+
 export const actionAddExpense = (expense) => ({
   type: ADD_EXPENSE,
   payload: expense,

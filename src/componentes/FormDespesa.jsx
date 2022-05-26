@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { BiWalletAlt, BiUserCircle } from 'react-icons/bi';
-import { actionAddExpense, actionDeleteExpense, actionEditExpense } from '../actions';
+import { actionAddExpense, actionDeleteExpense, actionEditExpense } from '../redux/actions';
 import TableSpend from './TableSpend';
 import './FormDespesa.css';
 
