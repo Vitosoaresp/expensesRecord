@@ -10,7 +10,7 @@ class FormDespesa extends React.Component {
   state = {
     value: 0,
     description: '',
-    currency: 'USD',
+    currency: 'BRL',
     method: 'Dinheiro',
     tag: 'Alimentação',
     id: 0,
@@ -27,7 +27,13 @@ class FormDespesa extends React.Component {
   fecthPrices = async () => {
     const currenciesApi = await fetch('https://economia.awesomeapi.com.br/json/all');
     const result = await currenciesApi.json();
-    return result;
+    const addBRL = { ...result, BRL: {
+      "code": "BRL",
+      "codein": "BRL",
+      "name": "Real Brasileiro",
+      "ask": "1",
+    }};
+    return addBRL;
   };
 
   deleteExpense = (idExpense) => {
@@ -52,7 +58,7 @@ class FormDespesa extends React.Component {
       id: prevState.id + 1,
       value: '',
       description: '',
-      currency: 'USD',
+      currency: 'BRL',
       method: 'Dinheiro' }));
   };
 
@@ -65,7 +71,7 @@ class FormDespesa extends React.Component {
     this.setState({
       value: 0,
       description: '',
-      currency: 'USD',
+      currency: 'BRL',
       method: 'Dinheiro',
       expenseSelect: '',
       expenseSelectPosition: 0,
@@ -101,18 +107,21 @@ class FormDespesa extends React.Component {
     return (
       <div>
         <header className="header">
-          <div className="wallet-svg"><BiWalletAlt /></div>
+          <div className="wallet-svg">
+            <span>Wallet</span>
+            <BiWalletAlt />
+          </div>
           <div className="user">
             <div className="user-info">
               <BiUserCircle className="user-svg" />
-              <span data-testid="email-field">
+              <span>
                 { email }
               </span>
             </div>
             <div className="user-cash">
               Despesa Total: R$
-              <span data-testid="total-field">{this.getSumExpenses(expenses)}</span>
-              <span data-testid="header-currency-field">BRL</span>
+              <span>{this.getSumExpenses(expenses)}</span>
+              <span>BRL</span>
             </div>
           </div>
         </header>
@@ -123,7 +132,6 @@ class FormDespesa extends React.Component {
               type="number"
               name="value"
               id="despesa-valor"
-              data-testid="value-input"
               onChange={ (e) => this.handleForm(e) }
               value={ value }
             />
@@ -132,9 +140,9 @@ class FormDespesa extends React.Component {
             Descrição:
             <input
               type="text"
+              placeholder="Uma breve descrição da despesa"
               name="description"
               id="descricao"
-              data-testid="description-input"
               onChange={ (e) => this.handleForm(e) }
               value={ description }
             />
@@ -144,7 +152,6 @@ class FormDespesa extends React.Component {
             <select
               id="moeda"
               name="currency"
-              data-testid="currency-input"
               onChange={ (e) => this.handleForm(e) }
               value={ currency }
             >
@@ -163,7 +170,6 @@ class FormDespesa extends React.Component {
             Método de Pagamento:
             <select
               id="metodo-pagamento"
-              data-testid="method-input"
               name="method"
               onChange={ (e) => this.handleForm(e) }
               value={ method }
@@ -177,7 +183,6 @@ class FormDespesa extends React.Component {
             Tag:
             <select
               id="tag"
-              data-testid="tag-input"
               name="tag"
               onChange={ (e) => this.handleForm(e) }
               value={ tag }

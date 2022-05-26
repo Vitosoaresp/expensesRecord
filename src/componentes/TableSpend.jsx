@@ -45,7 +45,6 @@ class TableSpend extends React.Component {
             <td>
               <button
                 type="button"
-                data-testid="edit-btn"
                 className="btn-edit"
                 onClick={ () => editExpanse(expenses[index], index) }
               >
@@ -53,7 +52,6 @@ class TableSpend extends React.Component {
               </button>
               <button
                 type="button"
-                data-testid="delete-btn"
                 className="btn-delete"
                 onClick={ () => deleteExpense(id) }
               >

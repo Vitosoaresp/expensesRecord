@@ -32,5 +32,12 @@ export const actionEditExpense = (newExpense, position, expenses) => {
 export function fetchCurrencies() {
   return (dispatch) => fetch('https://economia.awesomeapi.com.br/json/all')
     .then((response) => response.json())
-    .then((currencies) => dispatch(getCurrencies(currencies)));
+    .then((currencies) => {
+      const Newcurrencies = {...currencies, BRL: {
+        "code": "BRL",
+        "codein": "BRL",
+        "name": "Real Brasileiro",
+        "ask": "1",
+      }, };
+      dispatch(getCurrencies(Newcurrencies));});
 }

@@ -7,8 +7,7 @@ import FormDespesa from '../componentes/FormDespesa';
 class Wallet extends React.Component {
   async componentDidMount() {
     const { getCurrency } = this.props;
-    const currency = await getCurrency();
-    currency.data.splice(1, 1);
+    getCurrency();
   }
 
   render() {
