@@ -1,7 +1,7 @@
 # Carteira de gastos
 
 <div>
-  <img src="./fotos/wallet.png" alt="wallet exemplo" />
+  <img src="wallet.png" alt="wallet exemplo" />
 </div>
 
 ## Tecnologias Usadas:
