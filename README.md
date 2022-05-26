@@ -9,4 +9,10 @@
 - React
 - Redux
 
-<a href="https://vitosoaresp.github.io/expensesRecord/" ><button type="button">Repositório</button>
+<a href="https://vitosoaresp.github.io/expensesRecord/" >
+  <button
+    type="button"
+  >
+    Repositório
+  </button>
+</a>
