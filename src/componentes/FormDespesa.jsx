@@ -8,7 +8,7 @@ import './FormDespesa.css';
 
 class FormDespesa extends React.Component {
   state = {
-    value: 0,
+    value: '',
     description: '',
     currency: 'BRL',
     method: 'Dinheiro',
@@ -166,19 +166,6 @@ class FormDespesa extends React.Component {
                 ))}
             </select>
           </label>
-          <label htmlFor="metodo-pagamento">
-            Método de Pagamento:
-            <select
-              id="metodo-pagamento"
-              name="method"
-              onChange={ (e) => this.handleForm(e) }
-              value={ method }
-            >
-              <option value="Dinheiro">Dinheiro</option>
-              <option value="Cartão de crédito">Cartão de crédito</option>
-              <option value="Cartão de débito">Cartão de débito</option>
-            </select>
-          </label>
           <label htmlFor="tag">
             Tag:
             <select
@@ -192,6 +179,19 @@ class FormDespesa extends React.Component {
               <option value="Trabalho">Trabalho</option>
               <option value="Transporte">Transporte</option>
               <option value="Saúde">Saúde</option>
+            </select>
+          </label>
+          <label htmlFor="metodo-pagamento">
+            Método de Pagamento:
+            <select
+              id="metodo-pagamento"
+              name="method"
+              onChange={ (e) => this.handleForm(e) }
+              value={ method }
+            >
+              <option value="Dinheiro">Dinheiro</option>
+              <option value="Cartão de crédito">Cartão de crédito</option>
+              <option value="Cartão de débito">Cartão de débito</option>
             </select>
           </label>
           <div>

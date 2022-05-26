@@ -24,6 +24,8 @@
 
 .table-body {
   background-color: #141414;
+  display: flex;
+  justify-content: space-between;
   text-align: right;
 }
 

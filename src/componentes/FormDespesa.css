@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Dongle&display=swap');
+
 .header {
   align-items: center;
   display: flex;
@@ -6,9 +8,16 @@
 }
 
 .header .wallet-svg {
+  align-items: center;
   display: flex;
   justify-content: center;
   width: 35%;
+}
+
+.header .wallet-svg span {
+  font-family: 'Dongle', sans-serif;
+  font-size: 15px;
+  margin-right: 2px;
 }
 
 .header .wallet-svg svg {
@@ -41,25 +50,12 @@
   color: #fffffe;
   display: flex;
   flex-direction: column;
-  padding: 19px;
+  padding: 19px 10px;
   width: 100%;
-}
-
-.form-container label input , .form-container label select {
-  margin-left: 9px;
 }
 
 .form-container label {
-  margin-bottom: 6px;
-  width: 100%;
-}
-
-.form-container label input {
-  width: 70%;
-}
-
-.form-container label select {
-  width: 50%;
+  margin-bottom: 10px;
 }
 
 select option {
@@ -99,6 +95,10 @@ select option {
     justify-content: center;
     margin: 0 auto;
   }
+  
+  .header .wallet-svg span {
+    font-size: 12px;
+  }
 
 }
 
@@ -109,7 +109,7 @@ select option {
   }
 
   .header .wallet-svg {
-    width: 15%;
+    width: 20%;
   }
 
   .header .user {
@@ -118,34 +118,35 @@ select option {
     width: 75%;
   }
 
+  .header .wallet-svg span {
+    font-size: 42px;
+  }
+
   .header .wallet-svg svg {
     font-size: 50px;
     margin-left: 35px;
   }
 
   .form-container {
+    align-items: center;
     flex-flow: row wrap;
   }
 
   .form-container label {
-    width: 35%;
-  }
-
-  .form-container label:nth-child( 4 ) {
-    width: 40%;
+    margin-bottom: 0;
+    margin-left: 5px;
   }
 
   .form-container label input , .form-container label select {
-    padding: 9px;
+    padding: 10px;
   }
 
   .form-container label:nth-child( 1 ) input {
-    width: 80px;
+    width: 95px;
   }
 
-  .form-container label:nth-child( 2 ) {
-    margin-left: -10%;
-    width: 40%;
+  .form-container label:nth-child( 5 ) {
+    width: 310px;
   }
 
   .form-container button {

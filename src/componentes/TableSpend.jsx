@@ -34,9 +34,8 @@ class TableSpend extends React.Component {
             <td>{method}</td>
             <td>{Number(value).toFixed(2)}</td>
             <td>
-              {exchangeRates[currency].name}
+              {exchangeRates[currency].name.split('/')[0]}
             </td>
-            <td>{currency}</td>
             <td>{Number(exchangeRates[currency].ask).toFixed(2)}</td>
             <td>
               { Number(value * exchangeRates[currency].ask).toFixed(2)}
