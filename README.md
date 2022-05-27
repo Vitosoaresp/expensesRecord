@@ -8,11 +8,12 @@
 
 - React
 - Redux
+- React Router Dom
 
 <a href="https://vitosoaresp.github.io/expensesRecord/" >
   <button
     type="button"
   >
-    Repositório
+    Github-Page
   </button>
 </a>
