@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/Vitosoaresp/expensesRecord/static/css/main.c4d6fa2e.chunk.css",
-    "main.js": "/Vitosoaresp/expensesRecord/static/js/main.429f1123.chunk.js",
-    "main.js.map": "/Vitosoaresp/expensesRecord/static/js/main.429f1123.chunk.js.map",
-    "runtime-main.js": "/Vitosoaresp/expensesRecord/static/js/runtime-main.f6c95961.js",
-    "runtime-main.js.map": "/Vitosoaresp/expensesRecord/static/js/runtime-main.f6c95961.js.map",
-    "static/js/2.5cbd5375.chunk.js": "/Vitosoaresp/expensesRecord/static/js/2.5cbd5375.chunk.js",
-    "static/js/2.5cbd5375.chunk.js.map": "/Vitosoaresp/expensesRecord/static/js/2.5cbd5375.chunk.js.map",
-    "index.html": "/Vitosoaresp/expensesRecord/index.html",
-    "precache-manifest.dadf33b9e4794c84ea2f68a7acf1555c.js": "/Vitosoaresp/expensesRecord/precache-manifest.dadf33b9e4794c84ea2f68a7acf1555c.js",
-    "service-worker.js": "/Vitosoaresp/expensesRecord/service-worker.js",
-    "static/css/main.c4d6fa2e.chunk.css.map": "/Vitosoaresp/expensesRecord/static/css/main.c4d6fa2e.chunk.css.map",
-    "static/js/2.5cbd5375.chunk.js.LICENSE.txt": "/Vitosoaresp/expensesRecord/static/js/2.5cbd5375.chunk.js.LICENSE.txt",
-    "static/js/main.429f1123.chunk.js.LICENSE.txt": "/Vitosoaresp/expensesRecord/static/js/main.429f1123.chunk.js.LICENSE.txt"
+    "main.css": "/expensesRecord/static/css/main.c4d6fa2e.chunk.css",
+    "main.js": "/expensesRecord/static/js/main.05118831.chunk.js",
+    "main.js.map": "/expensesRecord/static/js/main.05118831.chunk.js.map",
+    "runtime-main.js": "/expensesRecord/static/js/runtime-main.ebbe10bb.js",
+    "runtime-main.js.map": "/expensesRecord/static/js/runtime-main.ebbe10bb.js.map",
+    "static/js/2.5cbd5375.chunk.js": "/expensesRecord/static/js/2.5cbd5375.chunk.js",
+    "static/js/2.5cbd5375.chunk.js.map": "/expensesRecord/static/js/2.5cbd5375.chunk.js.map",
+    "index.html": "/expensesRecord/index.html",
+    "precache-manifest.06174113945f1b510e4265156188c0b2.js": "/expensesRecord/precache-manifest.06174113945f1b510e4265156188c0b2.js",
+    "service-worker.js": "/expensesRecord/service-worker.js",
+    "static/css/main.c4d6fa2e.chunk.css.map": "/expensesRecord/static/css/main.c4d6fa2e.chunk.css.map",
+    "static/js/2.5cbd5375.chunk.js.LICENSE.txt": "/expensesRecord/static/js/2.5cbd5375.chunk.js.LICENSE.txt",
+    "static/js/main.05118831.chunk.js.LICENSE.txt": "/expensesRecord/static/js/main.05118831.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.f6c95961.js",
+    "static/js/runtime-main.ebbe10bb.js",
     "static/js/2.5cbd5375.chunk.js",
     "static/css/main.c4d6fa2e.chunk.css",
-    "static/js/main.429f1123.chunk.js"
+    "static/js/main.05118831.chunk.js"
   ]
 }
